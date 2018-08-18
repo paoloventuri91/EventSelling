@@ -1,0 +1,16 @@
+{
+   "name": "event-selling",
+   "version": "0.0.1",
+   "description": "A simple event selling application",
+   "main": "main.js",
+   "scripts": {
+      "start": "electron ."
+   },
+   "repository": "https://github.com/electron/electron-quick-start",
+   "author": "Paolo Venturi",
+   "license": "MIT",
+   "devDependencies": {
+      "electron": "^2.0.0",
+      "zerorpc": "git+https://github.com/fyears/zerorpc-node.git"
+   }
+}

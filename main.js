@@ -1,59 +1,49 @@
-// Modules to control application life and create native browser window
 const {app, BrowserWindow, globalShortcut} = require('electron')
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-
 function createWindow () {
-   // Create the browser window.
+   // Creazione della schermata principale
    mainWindow = new BrowserWindow({width: 800, height: 600})
 
-   // and load the index.html of the app.
+   // Caricamento della pagina di login
    mainWindow.loadFile('html/login.html')
 
-   // hide default menu
+   // Rimozione del menu a tendina
    mainWindow.setMenu(null);
 
-   // Wait for 'ready-to-show' to display our window
+   // Attesa della pagina prima della visualizzazione
    mainWindow.once('ready-to-show', () => {
       mainWindow.show()
    })
 
-   // maximize window
+   // Ingrandimento della schermata
    mainWindow.maximize();
 
-   // Emitted when the window is closed.
+   // Operazioni da eseguire in chiusura della schermata
    mainWindow.on('closed', function () {
-      // Dereference the window object, usually you would store windows
-      // in an array if your app supports multi windows, this is the time
-      // when you should delete the corresponding element.
       mainWindow = null
    })
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
+// Creazione della schermata quando l'app è pronta
 app.on('ready', createWindow)
 
+// Aggiunta della shortcut globale per l'apertura dei dev tools
 app.on('ready', () => {
    globalShortcut.register('Ctrl+Shift+I', () => {
       mainWindow.webContents.openDevTools()
    })
 })
 
-// Quit when all windows are closed.
+// Operazioni eseguite in chiusira dell'app
 app.on('window-all-closed', function () {
-   // On OS X it is common for applications and their menu bar
-   // to stay active until the user quits explicitly with Cmd + Q
    if (process.platform !== 'darwin') {
       app.quit()
    }
 })
+
+// Operazioni eseguite in fase di attivazione dell'app
 app.on('activate', function () {
-   // On OS X it's common to re-create a window in the app when the
-   // dock icon is clicked and there are no other windows open.
    if (mainWindow === null) {
       createWindow()
    }

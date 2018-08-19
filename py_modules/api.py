@@ -15,6 +15,14 @@ class EventSellingApi(object):
       except Exception as e:
          return 0.0
 
+   def insertEvent(self, eventName):
+      try:
+         return self.dbManager.insertEvent(eventName)
+
+      except Exception as e:
+         return 0.0
+
+
 def parse_port():
    port = 4243
    try:

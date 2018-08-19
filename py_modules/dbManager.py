@@ -22,6 +22,13 @@ class DbManager():
       c.execute('select * from events')
       return c.fetchall()
 
+   def insertEvent(self, eventName):
+      c = self.db_conn.cursor()
+      c.execute('insert into events (name) values (?)', (eventName,))
+      self.db_conn.commit()
+      c.execute('select * from events where name = ?', (eventName,))
+      return c.fetchone()
+
 def _dict_factory(cursor, row):
    d = {}
    for idx, col in enumerate(cursor.description):

@@ -1,5 +1,6 @@
 const { remote } = require('electron')
 const BrowserWindow = remote.BrowserWindow;
+const currentWindow = remote.getCurrentWindow();
 
 // Creazione del client per la comunicazione con il backend python
 const zerorpc = require('zerorpc')
@@ -18,8 +19,6 @@ client.invoke('getEvents', (error, res) => {
 // Gestione del pulsante per l'inserimento di un nuovo evento
 const newButton = document.getElementById('newButton')
 newButton.addEventListener('click', function() {
-   const currentWindow = remote.getCurrentWindow();
-
    // Creazione della schermata secondaria
    newWindow = new BrowserWindow({
       parent: currentWindow,
@@ -47,5 +46,10 @@ function showEvent(event){
    const button = document.createElement('button')
    button.setAttribute('class', 'eventButton')
    button.innerHTML = event['name'] + ' ❯'
+   button.addEventListener('click', function() {
+      remote.getGlobal('event').event_id = event.event_id
+      remote.getGlobal('event').name = event.name
+      currentWindow.loadFile('html/menu.html')
+   })
    container.appendChild(button);
 }

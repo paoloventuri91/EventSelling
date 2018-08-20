@@ -1,5 +1,11 @@
 const {app, BrowserWindow, globalShortcut} = require('electron')
 
+global.event = {
+   event_id: 0,
+   name: ""
+};
+
+
 let mainWindow
 function createWindow () {
    // Creazione della schermata principale
